@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        //逆向思维 转换成移除一个最长的子数组，使得剩余元素和为x
+        //reduce 通常指的是将一个容器中的元素“归约”为一个值,默认为求和
+        int target=reduce(nums.begin(),nums.end())-x;//
+        if(target<0){
+            return -1;
+        }
+        int ans=-1,left=0,sum=0,n=nums.size();
+        for(int i=0;i<n;++i){
+            sum+=nums[i];
+            while(sum>target){
+                sum-=nums[left];
+                ++left;
+            }
+            if(sum==target){
+                ans=max(ans,i-left+1);
+            }
+        }
+        return ans<0?-1:n-ans;
+    }
+};

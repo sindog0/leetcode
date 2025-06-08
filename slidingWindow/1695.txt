@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        unordered_map<int,int> m;
+        int ans=0,sum=0,left=0;
+        int n=nums.size();
+        for(int i=0;i<n;++i){
+            sum+=nums[i];
+            m[nums[i]]++;
+            while(m[nums[i]]>1){//while一定要注意重复元素的处理
+                m[nums[left]]--;
+                sum-=nums[left];
+                ++left;
+            }
+            ans=max(ans,sum);
+        }
+        return ans;
+    }
+};

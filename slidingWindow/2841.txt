@@ -1,0 +1,27 @@
+class Solution {
+public:
+    long long maxSum(vector<int>& nums, int m, int k) {
+        unordered_map<int,int> map; // 元素 -> 出现次数
+        long long sum=0;
+        long long ans=0;
+        int n=nums.size();
+        for(int i=0;i<n;++i){
+            sum+=nums[i];
+            map[nums[i]]++;
+            if(i<k-1){
+                continue;
+            }
+            if(map.size()>=m){
+                ans=max(sum,ans);
+            }
+            sum-=nums[i-k+1];//出窗口
+            if(map[nums[i-k+1]]==1){//如果元素个数为1，则删除
+                map.erase(nums[i-k+1]);
+            }
+            else{
+                --map[nums[i-k+1]];//否则将元素的出现次数-1
+            }
+        }
+        return ans;
+    }
+};
