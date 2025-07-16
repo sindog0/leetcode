@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int minimumRefill(vector<int>& plants, int capacityA, int capacityB) {
+        int ans=0,left=0,right=plants.size()-1;
+        int temp1=capacityA;
+        int temp2=capacityB;
+        while(left<right){
+            if(temp1>=plants[left]){
+                temp1-=plants[left];
+                ++left;
+            }else{
+                temp1=capacityA-plants[left];
+                ++left;
+                ++ans;
+            }
+
+            if(temp2>=plants[right]){
+                temp2-=plants[right];
+                --right;
+            }else{
+                temp2=capacityB-plants[right];
+                --right;
+                ++ans;
+            }
+        }
+
+        if(left == right) {
+            if (max(temp1, temp2) < plants[left]) {
+                ++ans;
+            }
+        }
+        return ans;
+    }
+};

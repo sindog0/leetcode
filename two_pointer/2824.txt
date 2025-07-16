@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int countPairs(vector<int>& nums, int target) {
+        int n= nums.size();
+        int ans=0,left=0,right=n-1;
+        sort(nums.begin(),nums.end());
+        while(left<right){//两数相加，最后的临界数不能使用两次
+            int sum =nums[left]+nums[right];
+            if(sum<target){
+                ans+=right-left;
+                ++left;
+            }else{
+                --right;
+            }
+        }
+        return ans;
+    }
+};

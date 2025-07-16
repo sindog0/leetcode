@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n=nums.size();
+        int low=0,high=n-1;
+        int index=-1,lowIndex=-1,highIndex=-1;
+        vector<int> ans(2,-1);
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(nums[mid] == target){
+                index =mid;
+                break;
+            }else if(nums[mid]>target){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        if(index==-1){//未找到
+            return ans;
+        }
+        lowIndex=highIndex=index;
+        while(lowIndex>=0 && nums[lowIndex] == target ){
+            --lowIndex;
+        }
+        while(highIndex<=n-1 && nums[highIndex]==target ){
+            ++highIndex;
+        }
+        ans[0]=lowIndex+1;
+        ans[1]=highIndex-1;
+        return ans;
+    }
+};

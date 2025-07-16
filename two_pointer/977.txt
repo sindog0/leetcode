@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        //双指针，离0越远其绝对值越大 O(n)
+        int n=nums.size();
+        int left=0,right=n-1;
+        int index=n-1;
+        vector<int> ans(n);
+        while(left<=right){
+            if(abs(nums[left])>abs(nums[right])){
+                ans[index]=abs(nums[left])*abs(nums[left]);
+                --index;
+                ++left;
+            }else{
+                ans[index]=abs(nums[right])*abs(nums[right]);
+                --index;
+                --right;
+            }
+        }
+        return ans;
+    }
+};
